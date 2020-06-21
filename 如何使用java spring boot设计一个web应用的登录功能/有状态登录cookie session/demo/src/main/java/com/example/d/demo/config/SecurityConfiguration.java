@@ -25,13 +25,6 @@ import com.example.d.demo.security.handler.AjaxLogoutSuccessHandler;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @Import(SecurityProblemSupport.class)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-	//TODO 又需要自己配置，跨域Filter
-	private CorsFilter corsFilter = new CorsFilter(new UrlBasedCorsConfigurationSource());
-	private final SecurityProblemSupport problemSupport;
-
-	public SecurityConfiguration(SecurityProblemSupport problemSupport) {
-		this.problemSupport = problemSupport;
-	}
 
 
 	@Bean
@@ -69,24 +62,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		// @formatter:off
 		http
 		.csrf()
-		.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-		.and()
-		.addFilterBefore(corsFilter, CsrfFilter.class)
-		.exceptionHandling()
-		.authenticationEntryPoint(problemSupport)
-		.accessDeniedHandler(problemSupport)
-		.and()
-		//TODO rememberMe 相关可以参考jhipster手脚架里的。PersistentTokenRememberMeServices.java
-		//		.rememberMe() 
-		//		.rememberMeServices(rememberMeServices)
-		//		.rememberMeParameter("remember-me")
-		//		.key("asavekey")
-		//		.and()
+        .disable()
 		.formLogin()
-		.loginProcessingUrl("/api/authentication")
+		.loginProcessingUrl("/login")
+        .usernameParameter("username")
+        .passwordParameter("password")
 		.successHandler(ajaxAuthenticationSuccessHandler())
 		.failureHandler(ajaxAuthenticationFailureHandler())
 		.permitAll()
@@ -107,6 +89,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.deny()
 		.and()
 		.authorizeRequests()
-		.antMatchers("/api/common/**").permitAll();
+        .antMatchers("/api/**").authenticated();
 	}
 }
