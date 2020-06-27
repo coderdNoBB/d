@@ -5,8 +5,6 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -19,40 +17,35 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.mach.platform.security.jwt.JWTConfigurer;
-import com.mach.platform.security.jwt.TokenProvider;
-import com.mach.platform.security.jwt.WsAuthenticationProvider;
+import com.example.demo.security.jwt.JWTConfigurer;
+import com.example.demo.security.jwt.TokenProvider;
+import com.example.demo.security.jwt.XxAuthenticationProvider;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-@Import(SecurityProblemSupport.class)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final TokenProvider tokenProvider;
 
-    private final SecurityProblemSupport problemSupport;
     
-    private final WsAuthenticationProvider wechatAuthenticationProvider;
+    private final XxAuthenticationProvider xxAuthenticationProvider;
     
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     
-    private StringRedisTemplate redisTemplate;
 
-    public SecurityConfiguration(TokenProvider tokenProvider, SecurityProblemSupport problemSupport,StringRedisTemplate redisTemplate,
-    		WsAuthenticationProvider wechatAuthenticationProvider,AuthenticationManagerBuilder authenticationManagerBuilder) {
+    public SecurityConfiguration(TokenProvider tokenProvider,
+    		XxAuthenticationProvider xxAuthenticationProvider,AuthenticationManagerBuilder authenticationManagerBuilder) {
         this.tokenProvider = tokenProvider;
-        this.problemSupport = problemSupport;
-        this.wechatAuthenticationProvider = wechatAuthenticationProvider;
+        this.xxAuthenticationProvider = xxAuthenticationProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
-        this.redisTemplate = redisTemplate;
     }
     
     @PostConstruct
     public void init() {
         try {
             authenticationManagerBuilder
-                .authenticationProvider(wechatAuthenticationProvider);
+                .authenticationProvider(xxAuthenticationProvider);
         } catch (Exception e) {
             throw new BeanInitializationException("Security configuration failed", e);
         }
@@ -84,11 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
             .authorizeRequests()
-            .antMatchers("/user/**").authenticated()
-            .antMatchers("/system/**").authenticated()
-            .antMatchers("/devGroup/**").authenticated()
-            .antMatchers("/iot/**").authenticated()
-            .antMatchers("/frontSystem/**").authenticated()
+            .antMatchers("/api/**").authenticated()
             .anyRequest().permitAll()
         .and()
             .apply(securityConfigurerAdapter());
@@ -96,7 +85,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     private JWTConfigurer securityConfigurerAdapter() {
-        return new JWTConfigurer(tokenProvider,redisTemplate);
+        return new JWTConfigurer(tokenProvider);
     }
     
     @Bean

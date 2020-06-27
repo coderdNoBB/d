@@ -1,0 +1,5 @@
+jwt:
+   key: c4a8de2310d54f72bd8850ceb2f97def
+   tokenvalidityinseconds:  86400000
+   tokenvalidityinsecondsforrememberme: 259200000
+   headAuthorkey: cwkey
