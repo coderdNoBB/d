@@ -38,8 +38,7 @@ public class LoginResource {
 		//TODO 验证登录请求的账号密码
 		if(request.getAccount().equals("d")) {
 			String jwtToken = buildJwt("d",Constants.ADMIN,false);
-			LoginResponse loginResponse=LoginResponse.builder().jwtToken(jwtToken)
-					.userName("").build();
+			LoginResponse loginResponse=LoginResponse.builder().accessToken(jwtToken).build();
 			return Response.success(loginResponse);
 		}else {
 			return Response.fail(Constants.LOGIN_FAIL);

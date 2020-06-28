@@ -9,6 +9,7 @@ public class JwtProperties {
 	private String key;
 	private Long tokenvalidityinseconds;
 	private Long tokenvalidityinsecondsforrememberme;
+	private Integer refreshTokenExpiredseconds;
 }
 
 

@@ -17,5 +17,11 @@ public class LoginResponse {
 	
 	@ApiModelProperty(value = "accessToken")
 	private String accessToken;
+	
+	@ApiModelProperty(value = "expiresIn")
+	private String expiresIn;
+	
+	@ApiModelProperty(value = "refreshToken")
+	private String refreshToken;
 
 }
