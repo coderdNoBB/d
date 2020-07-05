@@ -32,7 +32,7 @@ public class FormSubmitInterceptor extends HandlerInterceptorAdapter {
 			if(redisTemplate.hasKey(formId)) {
 				throw new FromSubmitException();
 			}else {
-				redisTemplate.opsForValue().setIfAbsent(formId,"",5,TimeUnit.MINUTES);
+				redisTemplate.opsForValue().setIfAbsent(formId,"",5,TimeUnit.SECONDS);
 			}
 		}else {
 			throw new FromSubmitException();
