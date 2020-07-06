@@ -7,7 +7,7 @@
 4. 可以导入大众喜爱的http工具postman,方便前端调试
 
 - 注意:
-1. 如果要导入postman,最好加一个头部描述，这样import后可以更好低适配postman的环境变量,我暂时知道这个方法- - 
+1. 如果要导入postman,最好加一个头部描述，这样import后可以更好地适配postman的环境变量,我暂时知道这个方法- - 
 ```
 @ApiImplicitParams({
 	@ApiImplicitParam(name = "Authorization", value = "Authorization token", required = true, dataType = "string", paramType = "header") 
