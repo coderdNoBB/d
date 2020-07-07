@@ -6,6 +6,9 @@ spring:
     password: password
   jpa:
     properties:
+      hibernate.jdbc.batch_size: 30
+      hibernate.order_updates: true
+      hibernate.batch_versioned_data: true 
       hibernate.generate_statistics: true #是否顯示統計日誌
   h2:
     console:
