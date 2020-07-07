@@ -2,7 +2,7 @@
 - swagger 是OpenAPI Specification的一个实现
 - swagger 的优点：
 1. spring boot的interface doc的好伴侣
-2. 代替了代码注释,注释即文档
+2. 代替了方法和属性的注释,注释即文档
 3. 符合面向对象的设计,跟随代码版本同步
 4. 可以导入大众喜爱的http工具postman,方便前端调试
 
