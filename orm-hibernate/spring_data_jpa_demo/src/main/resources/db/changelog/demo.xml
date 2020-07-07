@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<!-- 数据初始化 -->
+	<changeSet id="create_tables" author="coderd">
+		<createTable tableName="test_entity">
+			<column name="id" type="varchar(32)">
+			 <constraints nullable="false" primaryKey="true" primaryKeyName="test_table_pk_id"></constraints>
+			</column>
+			<column name="content" type="varchar(64)" />
+			<column name="remark" type="varchar(64)" />
+			<column name="create_time" type="datetime" />
+			<column name="type" type="int(1)" />
+		</createTable>
+		<rollback>
+			drop table testTable
+		</rollback>
+	</changeSet>
+</databaseChangeLog>
