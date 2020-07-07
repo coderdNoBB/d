@@ -9,7 +9,7 @@ spring:
       hibernate.jdbc.batch_size: 30
       hibernate.order_updates: true
       hibernate.batch_versioned_data: true 
-      hibernate.generate_statistics: true #是否顯示統計日誌
+      hibernate.generate_statistics: true
   h2:
     console:
       enabled: true

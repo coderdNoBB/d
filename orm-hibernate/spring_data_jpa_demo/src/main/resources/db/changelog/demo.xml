@@ -6,19 +6,30 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-	<!-- 数据初始化 -->
+	<!-- 数据表结构初始化 -->
 	<changeSet id="create_tables" author="coderd">
 		<createTable tableName="test_entity">
 			<column name="id" type="varchar(32)">
-			 <constraints nullable="false" primaryKey="true" primaryKeyName="test_table_pk_id"></constraints>
+			 <constraints nullable="false" primaryKey="true" primaryKeyName="test_entity_pk_id"></constraints>
 			</column>
 			<column name="content" type="varchar(64)" />
 			<column name="remark" type="varchar(64)" />
 			<column name="create_time" type="datetime" />
 			<column name="type" type="int(1)" />
 		</createTable>
+		<createTable tableName="test_two_entity">
+			<column name="id" type="varchar(32)">
+			 <constraints nullable="false" primaryKey="true" primaryKeyName="test_two_entity_pk_id"></constraints>
+			</column>
+			<column name="content" type="varchar(64)" />
+			<column name="remark" type="varchar(64)" />
+			<column name="create_time" type="datetime" />
+			<column name="type" type="int(1)" />
+			<column name="test_entity_id" type="varchar(32)" />
+		</createTable>
 		<rollback>
-			drop table testTable
+			drop table test_entity
+			drop table test_two_entity
 		</rollback>
 	</changeSet>
 </databaseChangeLog>
