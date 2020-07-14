@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/spring boot api参数校验之Hibernate Validation/Hibernate_Validation_demo/Hibernate_Validation_demo.iml" filepath="$PROJECT_DIR$/spring boot api参数校验之Hibernate Validation/Hibernate_Validation_demo/Hibernate_Validation_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/idea_workspace.iml" filepath="$PROJECT_DIR$/.idea/idea_workspace.iml" />
+    </modules>
+  </component>
+</project>
